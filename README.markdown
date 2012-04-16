@@ -1,5 +1,3 @@
--> encoding: UTF-8
-
 Flobnar
 =======
 
@@ -17,7 +15,7 @@ functional dual of Befunge-93; most of the symbols have analogous
 meanings, but execution proceeds in a much more dataflow-like fashion.
 
 This document describes Flobnar with a series of examples, presented
-in the format of Falderal 0.4 tests.
+in the format of Falderal 0.7 tests.
 
 Concepts
 --------
@@ -58,10 +56,10 @@ For this reason, order of evaluation should be completely defined.
 Flobnar Tests
 -------------
 
--> Tests for functionality "Interpret Flobnar program"
+    -> Tests for functionality "Interpret Flobnar program"
 
--> Functionality "Interpret Flobnar program" is implemented by
--> Haskell function Flobnar:showRun
+    -> Functionality "Interpret Flobnar program" is implemented by
+    -> Haskell function Flobnar:showRun
 
 Basics of Execution
 -------------------
@@ -71,16 +69,16 @@ in Flobnar, `@` indicates the starting point.  The program evaluates
 to whatever the `@` it contains evaluates to.  The `@` evaluates to
 whatever is west of it evaluates to.
 
-| 4@
-= Result: 4
+    | 4@
+    = Result: 4
 
 The program must contain one and only one @.
 
-| 4
-? Program does not contain exactly one @
+    | 4
+    ? Program does not contain exactly one @
 
-| 4@@
-? Program does not contain exactly one @
+    | 4@@
+    ? Program does not contain exactly one @
 
 Simple Constant Data
 --------------------
@@ -89,32 +87,32 @@ As in Befunge-93, single digits evaluate to the common decimal
 interpretation of themselves as numbers.  You've already seen this
 for 4, but it's true for all of them.
 
-| 0@
-= Result: 0
+    | 0@
+    = Result: 0
 
-| 1@
-= Result: 1
+    | 1@
+    = Result: 1
 
-| 2@
-= Result: 2
+    | 2@
+    = Result: 2
 
-| 3@
-= Result: 3
+    | 3@
+    = Result: 3
 
-| 5@
-= Result: 5
+    | 5@
+    = Result: 5
 
-| 6@
-= Result: 6
+    | 6@
+    = Result: 6
 
-| 7@
-= Result: 7
+    | 7@
+    = Result: 7
 
-| 8@
-= Result: 8
+    | 8@
+    = Result: 8
 
-| 9@
-= Result: 9
+    | 9@
+    = Result: 9
 
 Playfield Traversal
 -------------------
@@ -128,37 +126,37 @@ appropriate adjacent cell evaluates to:
     v evaluates to whatever is south of it evaluates to
     ^ evaluates to whatever is north of it evaluates to
 
-| 4<<<<<@
-= Result: 4
+    | 4<<<<<@
+    = Result: 4
 
-| >>>>>v
-| ^    v
-| ^    4
-| ^<<<<@
-= Result: 4
+    | >>>>>v
+    | ^    v
+    | ^    4
+    | ^<<<<@
+    = Result: 4
 
 Also, ' ' (blank space) evaluates to whatever the cell on the other
 side of it evaluates to.  So, for example, if evaluated from the
 south, it evaluates to what the north of it evaluates to.
 
-| 4    @
-= Result: 4
+    | 4    @
+    = Result: 4
 
-| >    v
-|       
-|      4
-| ^    @
-= Result: 4
+    | >    v
+    |       
+    |      4
+    | ^    @
+    = Result: 4
 
 Cells which are not specified are considered to contain blank space.
 (In the example below, the two middle lines have nothing in them, not
 even blank space.)
 
-|     v@
-| 
-| 
-| 4   <
-= Result: 4
+    |     v@
+    | 
+    | 
+    | 4   <
+    = Result: 4
 
 Like Befunge-93, there is toroidal wrapping of evaluation: if we try
 to evaluate something outside the bounds of the playfield, we end up
@@ -167,41 +165,41 @@ Unlike Befunge-93, however, the bounds of the playfield are determined
 solely by the minimal bounding box that encompasses all the non-' '
 terms in the playfield.
 
-| @4
-= Result: 4
+    | @4
+    = Result: 4
 
-| v@
-| <  v
-|   ^<
-|   4
-= Result: 4
+    | v@
+    | <  v
+    |   ^<
+    |   4
+    = Result: 4
 
 There's a "Bridge" term, similar to Befunge's `#` instruction.  It
 evaluates to whatever is one cell past the other side of it.
 
-| 5     6#@
-= Result: 5
+    | 5     6#@
+    = Result: 5
 
-|  7v @
-| v8#<
-| >#9 v
-|   >^ 
-|  ^  <
-= Result: 7
+    |  7v @
+    | v8#<
+    | >#9 v
+    |   >^ 
+    |  ^  <
+    = Result: 7
 
 And `#` is compatible with wrapping.
 
-| #@   56
-= Result: 5
+    | #@   56
+    = Result: 5
 
 And we were serious when we said that thing about how the bounds of
 the playfield are computed.
 
-|             
-|     v   @   
-|    #<  17   
-|             
-= Result: 1
+    |             
+    |     v   @   
+    |    #<  17   
+    |             
+    = Result: 1
 
 Arithmetic
 ----------
@@ -210,107 +208,107 @@ The `+` term evaluates whatever is to the north of it, then evaluates
 whatever is to the south of it, and evaluates to the sum of those
 two resulting values.
 
-| 5
-| +@
-| 7
-= Result: 12
+    | 5
+    | +@
+    | 7
+    = Result: 12
 
-| 5<<    
-|   +<<  
-| 7<< +<@
-|    6<  
-= Result: 18
+    | 5<<    
+    |   +<<  
+    | 7<< +<@
+    |    6<  
+    = Result: 18
 
 The `*` term evaluates whatever is to the north of it, then evaluates
 whatever is to the south of it, and evaluates to the product of those
 two resulting values.
 
-| 5
-| *@
-| 7
-= Result: 35
+    | 5
+    | *@
+    | 7
+    = Result: 35
 
 The `-` term evaluates whatever is to the north of it (and we call that
 /a/), then evaluates whatever is to the south of it (and we call that /b/).
 It evaluates to the difference, /a/ - /b/.
 
-| 7
-| -@
-| 5
-= Result: 2
+    | 7
+    | -@
+    | 5
+    = Result: 2
 
 Subtraction resulting in a negative value.
 
-| 1
-| -@
-| 9
-= Result: -8
+    | 1
+    | -@
+    | 9
+    = Result: -8
 
 The `/` term evaluates whatever is to the north of it (and we call that
 /a/), then evaluates whatever is to the south of it (and we call that /b/).
 It evaluates to the quotient of dividing /a/ by /b/.
 
-| 8
-| /@
-| 2
-= Result: 4
+    | 8
+    | /@
+    | 2
+    = Result: 4
 
 Integer division rounds down.
 
-| 9
-| /@
-| 2
-= Result: 4
+    | 9
+    | /@
+    | 2
+    = Result: 4
 
 Division by zero evaluates to whatever the cell on the other side
 of the `/` term evaluates to.
 
-|  9
-| 7/@
-|  0
-= Result: 7
+    |  9
+    | 7/@
+    |  0
+    = Result: 7
 
-| v9#@
-| >/7
-|  0
-= Result: 7
+    | v9#@
+    | >/7
+    |  0
+    = Result: 7
 
 The `%` term evaluates whatever is to the north of it (and we call that
 /a/), then evaluates whatever is to the south of it (and we call that /b/).
 It evaluates to the remainder of dividing /a/ by /b/.  This operation is
 called "modulo".
 
-| 8
-| %@
-| 3
-= Result: 2
+    | 8
+    | %@
+    | 3
+    = Result: 2
 
 Modulo of a negative value has the sign of the dividend.
 
-|  7
-| 0%@
-| +<
-| 3
-= Result: 1
+    |  7
+    | 0%@
+    | +<
+    | 3
+    = Result: 1
 
-|  7
-| 0%@
-| -<
-| 3
-= Result: 1
+    |  7
+    | 0%@
+    | -<
+    | 3
+    = Result: 1
 
 Modulo by zero evaluates to whatever the cell on the other side
 evaluates to.
 
-|  9
-| 7%@
-|  0
-= Result: 7
+    |  9
+    | 7%@
+    |  0
+    = Result: 7
 
-| v9#@
-| >%7
-|  0
-= Result: 7
+    | v9#@
+    | >%7
+    |  0
+    = Result: 7
 
 Decision Making
 ---------------
@@ -321,69 +319,69 @@ the cell west of it evaluates to; otherwise, it evaluates to what the
 cell east of it evaluates to.  In either case, at most two evaluations
 are made.
 
-|  0
-| 5_9
-|  ^@
-= Result: 9
+    |  0
+    | 5_9
+    |  ^@
+    = Result: 9
 
-|   7
-| 
-| 5 _ 9
-| 
-|   ^@
-= Result: 5
+    |   7
+    | 
+    | 5 _ 9
+    | 
+    |   ^@
+    = Result: 5
 
-|   v<
-| 
-| 5 _ 9
-| 
-|   7^@
-= Result: 5
+    |   v<
+    | 
+    | 5 _ 9
+    | 
+    |   7^@
+    = Result: 5
 
 'Vertical if', denoted `|`, checks what the other side of it evaluates to.
 If that value is nonzero, it evaluates to what the cell north of it
 evaluates to; otherwise, it evaluates to what the cell south of it
 evaluates to.  In either case, at most two evaluations are made.
 
-|  3
-| 0|@
-|  4
-= Result: 4
+    |  3
+    | 0|@
+    |  4
+    = Result: 4
 
-|   3
-| 
-| 9 | @
-| 
-|   4
-= Result: 3
+    |   3
+    | 
+    | 9 | @
+    | 
+    |   4
+    = Result: 3
 
-|   3
-| v   @
-| > | 9
-| 
-|   4
-= Result: 3
+    |   3
+    | v   @
+    | > | 9
+    | 
+    |   4
+    = Result: 3
 
 These "if"s can be used to evaluate a cell for its side-effects only.
 In the following, the sum is evaluated, but the result is effectively
 thrown out, in preference to the zero.
 
-| 90 <
-| +|@
-| 9> ^
-= Result: 0
+    | 90 <
+    | +|@
+    | 9> ^
+    = Result: 0
 
 Like Befunge-93, `!` is logical negation: it evaluates to zero if the
 cell on the other side evaluates to non-zero, and to one if the cell on
 the other side evaluates to zero.
 
-| 0!@
-= Result: 1
+    | 0!@
+    = Result: 1
 
-| >  v
-| ^@ !
-|    9
-= Result: 0
+    | >  v
+    | ^@ !
+    |    9
+    = Result: 0
 
 We don't need greater than, because we can subtract one value
 from other, divide the result by itself (specifying a result of 0
@@ -395,20 +393,20 @@ evaluates whatever is to the north of it (and we call that /a/), then
 evaluates whatever is to the south of it (and we call that /b/).  It
 evaluates to 1 if /a/ is greater than /b/, 0 otherwise.
 
-| 8
-| `@
-| 7
-= Result: 1
+    | 8
+    | `@
+    | 7
+    = Result: 1
 
-| 8
-| `@
-| 8
-= Result: 0
+    | 8
+    | `@
+    | 8
+    = Result: 0
 
-| 8
-| `@
-| 9
-= Result: 0
+    | 8
+    | `@
+    | 9
+    = Result: 0
 
 `?` picks one of the cardinal directions at random and evaluates
 to whatever the cell in that direction evaluates to.  `?` should
@@ -438,10 +436,10 @@ of the symbol that's found in that cell in the playfield.  The origin
 bounding box I mentioned above, and x values increase to the right,
 and y values to the south.
 
-| A0
-|  g@
-|  0
-= Result: 65
+    | A0
+    |  g@
+    |  0
+    = Result: 65
 
 The `p` term evaluates to the north to get an x coordinate, then
 to the south to get a y coordinate.  It then evaluates what is on
@@ -450,73 +448,73 @@ in effect, by placing that value at that (x,y) coordinate.  The
 coordinate system is the same as that used by `g`.  The `p` term
 always itself evaluates to zero.
 
-|    0
-|   5p  @
-|    0
-= Result: 0
+    |    0
+    |   5p  @
+    |    0
+    = Result: 0
 
-|    0
-|  5 p  <
-|    0  +@
-|    g  <
-|    0
-= Result: 5
+    |    0
+    |  5 p  <
+    |    0  +@
+    |    g  <
+    |    0
+    = Result: 5
 
-|    0
-|  > p 5
-|  +@
-|    0
-|  > g
-|    0
-= Result: 5
+    |    0
+    |  > p 5
+    |  +@
+    |    0
+    |  > g
+    |    0
+    = Result: 5
 
 Writing a space over an existing cell deletes that cell, and affects
 the calculation of the bounds of the playfield.
 
-| 85   5
-| *p<
-| 40+@
-|   >  +
-|      9
-|      9
-= Result: 18
+    | 85   5
+    | *p<
+    | 40+@
+    |   >  +
+    |      9
+    |      9
+    = Result: 18
 
-|      5
-| 85   #
-| *p<
-| 40+@
-|   >  ^
-|      6
-|      9
-= Result: 6
+    |      5
+    | 85   #
+    | *p<
+    | 40+@
+    |   >  ^
+    |      6
+    |      9
+    = Result: 6
 
 Writing outside the bounds of the playfield expands those bounds.
 Since only cardinal directions are allowed in evaluation, the space
 is still topologically a torus; no Lahey-space-like construction
 is necessary.
 
-|  99> v  
-| 7p*^@ >>#
-|  16  >+
-|       <^
-= Result: 7
+    |  99> v  
+    | 7p*^@ >>#
+    |  16  >+
+    |       <^
+    = Result: 7
 
 Every cell in the playfield can hold a signed, unbounded integer.
 
-| c 00
-|   -p  <
-|   90  +@
-|    g  <
-|    0
-= Result: -9
+    | c 00
+    |   -p  <
+    |   90  +@
+    |    g  <
+    |    0
+    = Result: -9
 
-|  9
-|  *< 0
-|  9* p  <
-|  *< 0  +@
-|  9  g  <
-|     0
-= Result: 6561
+    |  9
+    |  *< 0
+    |  9* p  <
+    |  *< 0  +@
+    |  9  g  <
+    |     0
+    = Result: 6561
 
 (One consequence of the above two facts is that there are at least
 two tactics available for demonstrating that Flobnar is Turing-
@@ -543,10 +541,10 @@ Functions
 There's no real equivalent to Befunge-93's `:`, because there's no
 need.  Common subexpressions can be shared geometrically.
 
-| v<
-| 5+@
-| ^<
-= Result: 10
+    | v<
+    | 5+@
+    | ^<
+    = Result: 10
 
 Likewise, there are no equivalents for `\` and `$`.  Therefore, these
 symbols have different meanings in Flobnar.
@@ -570,66 +568,66 @@ The `\` term takes what to the south of it evaluates to, and uses
 that as the argument as it "applies" the "one-argument" "function" on
 the other side of it.  The `:` term evaluates to the current argument.
 
-| 5\@
-|  0
-= Result: 5
+    | 5\@
+    |  0
+    = Result: 5
 
-| :
-| +\@
-| 54
-= Result: 9
+    | :
+    | +\@
+    | 54
+    = Result: 9
 
-| v 1#  \ @
-| > +      
-|       
-|   :   7  
-= Result: 8
+    | v 1#  \ @
+    | > +      
+    |       
+    |   :   7  
+    = Result: 8
 
-| > v :
-| ^@>\*
-|    7:
-= Result: 49
+    | > v :
+    | ^@>\*
+    |    7:
+    = Result: 49
 
 If no function is being applied, `:` evaluates to zero.
 
-| :@
-= Result: 0
+    | :@
+    = Result: 0
 
 A function can call another function.  The outer function retains its
 argument after the inner function returns.
 
-| 1
-| +\<
-| :4+\@
-|   :7
-= Result: 12
+    | 1
+    | +\<
+    | :4+\@
+    |   :7
+    = Result: 12
 
 Hellooooo, factorial!
 
-| >     v
-| ^\ <   
-|        
-| :v    v   \<@
-| -<      : 6
-| 1 :   > *
-|   -|    <
-|   11
-= Result: 720
+    | >     v
+    | ^\ <   
+    |        
+    | :v    v   \<@
+    | -<      : 6
+    | 1 :   > *
+    |   -|    <
+    |   11
+    = Result: 720
 
 The `$` term removes the top value from the call stack and "calls" the
 "function" on the other side with this reduced call stack.  This, in
 effect, lets you write functions which take multiple arguments.
 
-| :
-| +\<<\@
-| :7  9
-= Result: 14
+    | :
+    | +\<<\@
+    | :7  9
+    = Result: 14
 
-| :
-| $
-| +\<<\@
-| :7  9
-= Result: 16
+    | :
+    | $
+    | +\<<\@
+    | :7  9
+    = Result: 16
 
 Input and Output
 ----------------

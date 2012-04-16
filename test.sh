@@ -1,3 +1,3 @@
 #!/bin/sh
 cd src
-falderal test ../doc/Flobnar.falderal
+falderal test ../README.markdown
