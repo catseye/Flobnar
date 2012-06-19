@@ -35,7 +35,7 @@
 module Flobnar where
 
 import qualified Data.Map as Map
-import qualified Char as Char
+import qualified Data.Char as Char
 
 data Value = IntVal Integer
              deriving (Show, Ord, Eq)

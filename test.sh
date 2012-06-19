@@ -1,3 +1,3 @@
 #!/bin/sh
 cd src
-falderal test ../README.markdown
+falderal -b test ../README.markdown
