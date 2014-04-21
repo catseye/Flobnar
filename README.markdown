@@ -58,10 +58,6 @@ Flobnar Tests
 
     -> Tests for functionality "Interpret Flobnar program"
 
-    -> Functionality "Interpret Flobnar program" is implemented by
-    -> shell command
-    -> "ghc src/Flobnar.hs -e "do c <- readFile \"%(test-body-file)\"; putStr $ showRun c""
-
 Basics of Execution
 -------------------
 
