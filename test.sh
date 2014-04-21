@@ -26,4 +26,6 @@ EOF
 fi
 
 falderal -b fixture.markdown README.markdown
+RESULT=$?
 rm -f fixture.markdown
+exit $RESULT
