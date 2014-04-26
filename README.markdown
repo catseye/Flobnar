@@ -58,6 +58,10 @@ Flobnar Tests
 
     -> Tests for functionality "Interpret Flobnar program"
 
+    -> Functionality "Interpret Flobnar program" is implemented by
+    -> shell command
+    -> "bin/flobnar %(test-body-file)"
+
 Basics of Execution
 -------------------
 
