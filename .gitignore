@@ -1,3 +1,5 @@
-*.o
 *.hi
-flobnar
+*.o
+*.jsmod
+bin/*.exe
+demo/flobnar.js

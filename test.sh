@@ -1,3 +1,4 @@
 #!/bin/sh
 
-./build.sh && falderal -b README.markdown
+#APPLIANCES="tests/appliances/flobnar.md"
+falderal -b $APPLIANCES README.markdown
