@@ -242,4 +242,4 @@ run program =
 
 showRun program =
     case run program of
-        IntVal x -> "Result: " ++ (show x)
+        IntVal x -> "Result: " ++ (show x) ++ "\n"
