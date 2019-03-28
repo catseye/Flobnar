@@ -1,6 +1,6 @@
 examplePrograms = [
     {
-        "contents": "3\n*>\n9+@\n/>\n2\n", 
+        "contents": "3\n* <\n98+@\n3/<\n-<\n1\n", 
         "filename": "arithmetic.flobnar"
     }, 
     {
