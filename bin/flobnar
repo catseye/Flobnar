@@ -4,7 +4,9 @@ THIS=`realpath $0`
 DIR=`dirname $THIS`
 NAME=`basename $THIS`
 SRC=$DIR/../src
-if [ -x $DIR/$NAME.exe ] ; then
+if [ "x$FORCE_HUGS" != "x" ] ; then
+    exec runhugs -i$SRC $SRC/Main.hs $*
+elif [ -x $DIR/$NAME.exe ] ; then
     exec $DIR/$NAME.exe $*
 elif command -v runhaskell 2>&1 >/dev/null ; then
     exec runhaskell -i$SRC $SRC/Main.hs $*
